@@ -9,8 +9,9 @@ from openpyxl.utils.dataframe import dataframe_to_rows
 
 #### options
 parser = argparse.ArgumentParser()
-parser.add_argument('--result_dir', type=str, required=True, help='Path to result directory.')
 parser.add_argument('--report_name', type=str, required=True, help='The name of xlsx file to save to')
+parser.add_argument('--result_dir', type=str, required=True, help='Path to result directory.')
+parser.add_argument('--set_name', type=str, default='Set11', help='The name of the test datasets, eg: Set11, and we assumed that the result pngs are in folder of <result_dir>/<set_name>/')
 
 args = parser.parse_args()
 
@@ -110,7 +111,7 @@ def parse_file_name(file_name):
 
 def scan_result_folder(path):
     results = []
-    for file in glob.glob(path + "/Set11/" + "*.png"):
+    for file in glob.glob(path + "/" + args.set_name + "/" + "*.png"):
         file_name = osp.basename(file)
         name_without_ext = osp.splitext(file_name)[0]
         results.append(parse_file_name(name_without_ext))
